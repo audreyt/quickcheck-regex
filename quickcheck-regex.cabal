@@ -1,9 +1,9 @@
 Name:                quickcheck-regex
-Version:             0.0.1
+Version:             0.0.2
 Homepage:            http://github.com/audreyt/quickcheck-regex/
 Category:            QuickCheck, test, regex
-Synopsis:            QuickCheck instances for arbitrary regular expressions and regex-conforming strings
-Description:         QuickCheck instances for arbitrary regular expressions and regex-conforming strings
+Synopsis:            Generate regex-constrained strings for QuickCheck
+Description:         Generate regex-constrained strings for QuickCheck
 License:             PublicDomain
 Author:              Audrey Tang
 Maintainer:          audreyt@audreyt.org
