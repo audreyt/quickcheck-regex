@@ -1,5 +1,5 @@
 Name:                quickcheck-regex
-Version:             0.0.2
+Version:             0.0.3
 Homepage:            http://github.com/audreyt/quickcheck-regex/
 Category:            QuickCheck, test, regex
 Synopsis:            Generate regex-constrained strings for QuickCheck

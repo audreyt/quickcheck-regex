@@ -20,6 +20,10 @@ import Text.Regex.TDFA.Pattern (Pattern(..), PatternSet(..))
 import Text.Regex.TDFA.ReadRegex (parseRegex)
 import qualified Data.Set as Set
 
+minChar, maxChar :: Char
+minChar = ' '
+maxChar = '~'
+
 matching :: String -> Gen String
 matching regex = case parseRegex regex of
     Left x -> fail $ show x
@@ -31,7 +35,9 @@ matching regex = case parseRegex regex of
         POr ps      -> oneof (map go ps)
         PConcat ps  -> concat `fmap` mapM go ps
         PQuest p    -> oneof [return "", go p]
-        PDot{}      -> (:[]) `fmap` arbitrary
+        PDot{}      -> do
+            n <- choose (fromEnum minChar, fromEnum maxChar)
+            return [toEnum n]
         PPlus p     -> concat `fmap` listOf (go p)
         PStar _ p   -> concat `fmap` listOf1 (go p)
         PBound low high p -> do
@@ -43,7 +49,7 @@ matching regex = case parseRegex regex of
         PAnyNot{ getPatternSet = PatternSet (Just cset) _ _ _ } -> oneChar $ charExclude (Set.toList cset)
         _           -> fail $ "Invalid pattern: " ++ show pat
     oneChar = oneof . map (return . (:[]))
-    charExclude = (['\0'..'\255'] \\)
+    charExclude = ([minChar .. maxChar] \\)
     expandEscape ch = case ch of
         'n' -> "\n"
         't' -> "\t"
